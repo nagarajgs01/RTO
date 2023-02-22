@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Feb 22 16:59:39 2023
+
+@author: GANGADHAR
+"""
+
 import tkinter
 import customtkinter as ct
 from tkinter.filedialog import askopenfile
@@ -7,8 +14,18 @@ from tkinter import messagebox
 
 
 
+import pandas as pd
+import openpyxl
+from datetime import date
+from datetime import datetime
+from pathlib import Path
+from docxtpl import DocxTemplate
+
+
 ct.set_appearance_mode("dark")
 ct.set_default_color_theme("green")
+
+date = date.today()
 
 
 global button
@@ -17,11 +34,36 @@ global file
 f_var=0
 
 
+
+
 #chosing frame
 class MyFrame2(ct.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self.sel_op()
+        
+    
+
+    def ngs(self,file):
+        base_dir = Path(__file__).parent
+        word = "F:/7th Sem/RTO Project/Book1.docx"
+        excel = file #file
+        
+        #code after clicking save
+        
+        output = base_dir / "OUTPUT" # path of the file to be saved
+
+        output.mkdir(exist_ok=True)
+    
+        fd = pd.read_excel(excel, 'Sheet1')
+        
+        
+        for record in fd.to_dict("records"):
+            doc = DocxTemplate(word)
+            doc.render(record)
+            output_path = output / f"{record['Name']}-doc.docx"
+            doc.save(output_path)
+
         
         
         
@@ -37,6 +79,8 @@ class MyFrame2(ct.CTkFrame):
                 if val==2:
                     entry.select_clear()
                     entry.configure(state="disabled")
+                    global file
+                    self.ngs(file)
                     
                 
         self.label = ct.CTkLabel(self,text="Note : Enter Range example 1-10, 15-20 .....")
@@ -58,6 +102,9 @@ class MyFrame2(ct.CTkFrame):
         
         radiobutton_1.place(relx=0.5, rely=0.3,anchor=tkinter.CENTER)
         radiobutton_2.place(relx=0.5, rely=0.6,anchor=tkinter.CENTER) 
+        
+    
+            
         
         
   
