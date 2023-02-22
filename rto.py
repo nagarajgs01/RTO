@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Feb 22 16:59:39 2023
-
-@author: GANGADHAR
-"""
-
 import tkinter
 import customtkinter as ct
 from tkinter.filedialog import askopenfile
