@@ -72,6 +72,16 @@ if ch == '1':
         comma(ele)
     elif range.__contains__("-"):
         hifen(range)
+    else:
+        for record in fd.to_dict("records"):
+            rng=int(range)
+            if record['Sno'] == rng:
+                doc = DocxTemplate(word)
+                doc.render(record)
+                output_path = output / f"{record['Name']}-doc.docx"
+                doc.save(output_path)
+        print(f"Printed document with sno : {rng}")
+
 else:
     for record in fd.to_dict("records"):
         doc = DocxTemplate(word)
