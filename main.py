@@ -47,8 +47,8 @@ class ngs:
     def hifen(c):
         lst = c.split('-')
         print(lst)
-        a = int(lst[0]-1)
-        b = int(lst[1]-1)
+        a = int(lst[0])-1
+        b = int(lst[1])-1
         for record in ngs.fd.to_dict("records"):
             if a <= record['Sno'] <= b:
                 doc = DocxTemplate(ngs.word)
