@@ -2,6 +2,7 @@
 
 import pandas as pd
 from tkinter import messagebox
+from main import ngs
 
 
 def excel_function(filePath):
@@ -104,6 +105,7 @@ if __name__=='__main__':
         print(new_list)
         values=[new_list]
         print_card(new_list)
+        ngs.finalPrint()
     
     except FileNotFoundError:
         messagebox.showerror("Error","Resource File not found")
