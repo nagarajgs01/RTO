@@ -19,7 +19,7 @@ class ngs:
         excel = base_dir / "print_details.xlsx"
         output.mkdir(exist_ok=True)
 
-        fd = pd.read_excel(excel, 'Sheet1',na_values=" ")
+        fd = pd.read_excel(excel, 'Sheet1')
         print(fd.head())
 
         for record in fd.to_dict("records"):
