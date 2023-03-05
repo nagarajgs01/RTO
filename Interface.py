@@ -1,16 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Mar  5 14:03:21 2023
-
-@author: JaySabnis
-"""
-
 import tkinter
 import customtkinter as ctk
 from tkinter import messagebox
 from tkinter.filedialog import askopenfilename
 import modifed_excel_def as med
+from main import ngs
 
 
 ctk.set_appearance_mode("dark")
@@ -77,7 +70,8 @@ class App(ctk.CTk):
             new_list=list(val.split(","))
             med.print_card(new_list)
             #print("List generated successfully")
-            answer=messagebox.askyesno("Software System","Do you Want to Continue ??")
+            ngs.finalPrint()
+            answer=messagebox.askyesno("Software System","Printed document Sucessfully \nDo you Want to Continue with other Registration number ??")
             #print(answer)
             if answer: 
                 pass
