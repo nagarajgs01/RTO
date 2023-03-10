@@ -95,7 +95,7 @@ def print_card(values):
             printing_sheet.at[user,"Pincode"]=temp1 
         
         else :
-            #ctypes.windll.user32.MessageBoxExW(None, "Information of Registration Number {r_no} not found".format(r_no=index), " Notice ", 0x40000)
+            ctypes.windll.user32.MessageBoxExW(None, "Information of Registration Number {r_no} not found".format(r_no=index), " Notice ", 0x40000)
             pass
           
        
