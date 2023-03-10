@@ -1,8 +1,11 @@
 
 
 import pandas as pd
-from tkinter import messagebox
-import numpy as np
+import pyautogui 
+import ctypes
+
+
+
 
 
 def excel_function(filePath):
@@ -64,7 +67,7 @@ def print_card(values):
     
     
     #print(new_excel.head())
-    printing_sheet=pd.read_excel(file_name,header=0,index_col=0,dtype={"Number":str})
+    printing_sheet=pd.read_excel(file_name,header=0,index_col=0,dtype={"Number":str},na_values=" ")
     #print(printing_sheet.head())
     user=0
     for index in values: 
@@ -91,7 +94,10 @@ def print_card(values):
             temp1=str(user_information['Pincode'].values.tolist()).strip("[]").strip("'")
             printing_sheet.at[user,"Pincode"]=temp1 
         
-      
+        else :
+            #ctypes.windll.user32.MessageBoxExW(None, "Information of Registration Number {r_no} not found".format(r_no=index), " Notice ", 0x40000)
+            pass
+          
        
        
     
@@ -99,20 +105,16 @@ def print_card(values):
     
     printing_sheet.to_excel(file_name)
     
-    #print("printing File created")
-""" 
- 
-if __name__=='__main__':
-  
-    try: 
-        
-        extractedInformation=excel_function("/Users/JaySabnis/Downloads/smart card excel sheet.xlsx")
-        val=input("enter values")
-        new_list=list(val.split(","))
-        print(new_list)
-        values=[new_list]
-        print_card(new_list)
     
-    except FileNotFoundError:
-        messagebox.showerror("Error","Resource File not found")
-  """
+
+"""
+if __name__=='__main__':
+          
+    extractedInformation=excel_function("/Users/JaySabnis/Downloads/smart card excel sheet.xlsx")
+    val=input("enter values : ")
+    new_list=list(val.split(","))
+    print(new_list)
+    values=[new_list]
+    print_card(new_list)
+"""  
+    

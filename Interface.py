@@ -1,9 +1,17 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Mar  5 14:03:21 2023
+
+@author: JaySabnis
+"""
+
 import tkinter
 import customtkinter as ctk
 from tkinter import messagebox
 from tkinter.filedialog import askopenfilename
 import modifed_excel_def as med
-from main import ngs
+import pickle
 
 
 ctk.set_appearance_mode("dark")
@@ -13,6 +21,8 @@ ctk.set_default_color_theme("green")
 
 global excelFile
 excelFile=None
+
+
 
 class App(ctk.CTk):
     
@@ -58,28 +68,32 @@ class App(ctk.CTk):
                     label3.place(relx=0.5, rely=0.6, anchor=tkinter.CENTER)
                     
                     med.excel_function(excelFile)
+                    with open( "save.p", "wb" ) as f :
+                        pickle.dump(excelFile, f )
                     #print("Updated file created sucessfully")
             except:
-                messagebox.showerror("Error", "Encountred unexpected Error while opeing file.")
+                messagebox.showerror("Error", "Encountred unexpected Error while opeing file.",icon="error")
         
         
         def RegistrationInput():
             dialog = ctk.CTkInputDialog(text="Enter The Registration numbers that to be printed.", title="Print Pannel")
             val=dialog.get_input().upper()
             print("Number:", val)
-            new_list=list(val.split(","))
+            new_list=list(val.split("."))
+            print(new_list)
             med.print_card(new_list)
             #print("List generated successfully")
-            ngs.finalPrint()
-            answer=messagebox.askyesno("Software System","Printed document Sucessfully \nDo you Want to Continue with other Registration number ??")
+            answer=messagebox.askyesno("Software System","Do you Want to Continue ??",default='yes')
             #print(answer)
             if answer: 
-                pass
+                RegistrationInput()
+           
             else:
-                app.after(1500, app.destroy())
-            pass
+                self.after(1500, self.destroy())
         
-    
+        
+        
+       
         self.button = ctk.CTkButton(master=self,
                                    width=120,
                                    height=32,
@@ -102,6 +116,39 @@ class App(ctk.CTk):
                                   command=openFile)
 
         fileButton.place(relx=0.5, rely=0.4, anchor=tkinter.CENTER)
+        
+        file_choice = messagebox.askyesno(title='confirmation',
+                    message='Do you want to continute with same file??',default='yes')
+        
+        if file_choice:
+            
+            with open( "save.p", "rb" ) as f:
+                excelFile_name = pickle.load(f )
+            
+            text_var = tkinter.StringVar(value=excelFile_name)
+            
+            label2 = ctk.CTkLabel(master=frame,
+                                         text="Selected File",
+                                         width=120,
+                                         height=25,
+                                         text_color="white",
+                                         corner_radius=8)
+            label2.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
+            
+            
+            
+            
+            label3 = ctk.CTkLabel(master=frame,
+                                         textvariable=text_var,
+                                         width=120,
+                                         height=25,
+                                         fg_color=("white", "gray75"),
+                                         text_color="black",
+                                         corner_radius=8)
+            label3.place(relx=0.5, rely=0.6, anchor=tkinter.CENTER)
+                    
+            
+            RegistrationInput()
         
 
 
